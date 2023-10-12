@@ -18,7 +18,18 @@ def read_data (list_csv : list[str]) -> pd.DataFrame:
         data = pd.read_csv(csv)
     return (data)
 
+def affretement () -> dict[dict]:
+    data = pd.read_csv('Affretement.csv')
+    dict_affretement = {}
+    for i, nom1 in enumerate(data.Sites):
+        dict_longueurs = {}
+        for j, nom2 in enumerate(data.Sites):
+            dict_longueurs[nom2] = data[i][j]
+        dict_affretement[nom1] = dict_longueurs    
+    return (dict_affretement)
 data = read_data(list_csv)
 
 print (data.Sites)
 print (data.Chaises)
+dict_affretement = affretement()
+print (dict_affretement)
