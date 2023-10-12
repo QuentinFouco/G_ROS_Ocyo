@@ -24,7 +24,8 @@ def affretement () -> dict[dict]:
     for i, nom1 in enumerate(data.Sites):
         dict_longueurs = {}
         for j, nom2 in enumerate(data.Sites):
-            dict_longueurs[nom2] = data[i][j]
+            print(data[nom1][j])
+            dict_longueurs[nom2] = data[nom1][j]
         dict_affretement[nom1] = dict_longueurs    
     return (dict_affretement)
 data = read_data(list_csv)
@@ -33,3 +34,4 @@ print (data.Sites)
 print (data.Chaises)
 dict_affretement = affretement()
 print (dict_affretement)
+print (dict_affretement.keys())
