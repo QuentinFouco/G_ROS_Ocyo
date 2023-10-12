@@ -1,12 +1,12 @@
-Produits;Unité par camion;;
-Tissus;500;;
-Mousse;250;;
-Tube;500;;
-Plastique;333;;
-Garniture;200;;
-PlasSieg;250;;
-PlasDos;250;;
-Dossier;167;;
-Assise;167;;
-Structure;100;;
-Chaise;50;;
+Produits,Unit_camion
+Tissus,500
+Mousse,250
+Tube,500
+Plastique,333
+Garniture,200
+PlasSieg,250
+PlasDos,250
+Dossier,167
+Assise,167
+Structure,100
+Chaise,50

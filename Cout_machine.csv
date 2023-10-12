@@ -1,8 +1,8 @@
-Machines;Amortissement (€/j);;
-Colleuse;76;;
-Presse;524;;
-MoulSieg;127;;
-MoulDos;93;;
-Plieuse;42;;
-Perceuse;5;;
-Découpeuse;12;;
+Machines,Amortissement
+Colleuse,76
+Presse,524
+MoulSieg,127
+MoulDos,93
+Plieuse,42
+Perceuse,5
+Decoupeuse,12
