@@ -1,7 +1,7 @@
 import pandas as pd
 
 list_csv = [
-    'nom.csv'
+    'Previsions_vente.csv'
     ]
 
 def read_data (list_csv : list[str]) -> pd.DataFrame:
@@ -15,7 +15,10 @@ def read_data (list_csv : list[str]) -> pd.DataFrame:
         - data frame du fichier
     """
     for csv in list_csv:
-        data = pd.read_csv(list_csv)
+        data = pd.read_csv(csv)
     return (data)
 
-print (list_csv)
+data = read_data(list_csv)
+
+print (data.Sites)
+print (data.Chaises)
