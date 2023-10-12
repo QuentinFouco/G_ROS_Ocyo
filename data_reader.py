@@ -4,21 +4,21 @@ list_csv = [
     'Previsions_vente.csv'
     ]
 
-def read_data (list_csv : list[str]) -> pd.DataFrame:
+def read_data (list_csv : list) -> pd.DataFrame:
+    """La fonction lit un tableau csv et renvoi les données dans un data frame
+
+    Args:
+        list_csv (list[str]): liste des noms de fichier
+
+    Returns:
+        pd.DataFrame: _description_
     """
-    La fonction lit un tableau csv et renvoi les données dans un data frame
     
-    INPUT : 
-        - nom_csv : string du nom du fichier
-    
-    OUTPUT :
-        - data frame du fichier
-    """
     for csv in list_csv:
         data = pd.read_csv(csv)
     return (data)
 
-def affretement () -> dict[dict]:
+def affretement () -> dict:
     data = pd.read_csv('Affretement.csv')
     dict_affretement = {}
     for i, nom1 in enumerate(data.Sites):
