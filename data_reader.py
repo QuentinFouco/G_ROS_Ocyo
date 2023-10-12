@@ -1,8 +1,10 @@
 import pandas as pd
 
-nom_csv = 'nom.csv'
+list_csv = [
+    'nom.csv'
+    ]
 
-def read_data (nom_csv : str) -> pd.DataFrame:
+def read_data (list_csv : list[str]) -> pd.DataFrame:
     """
     La fonction lit un tableau csv et renvoi les données dans un data frame
     
@@ -12,7 +14,8 @@ def read_data (nom_csv : str) -> pd.DataFrame:
     OUTPUT :
         - data frame du fichier
     """
-    data = pd.read_csv(nom_csv)
+    for csv in list_csv:
+        data = pd.read_csv(list_csv)
     return (data)
 
-print (nom_csv)
+print (list_csv)
