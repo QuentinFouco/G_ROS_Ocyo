@@ -21,14 +21,52 @@ def gen_usine(index : int) -> tuple:
     """
     villes = ['Madrid','Marseille','Turin','Munich','Bruxelles']
     dict_usine = {}
-    nb_usine = 0
+    nb_usine_f = 0
     for ville in villes:
         mod_index = index%2
-        nb_usine = nb_usine + mod_index
+        nb_usine_f = nb_usine_f + mod_index
         index = index//2
-        dict_usine[ville] = mod_index
-    return(dict_usine, nb_usine)
+        dict_usine_f[ville] = mod_index
+    return(dict_usine, nb_usine_f)
 
+table_usines_f = [
+    [0,0,0,0,1],
+    [0,0,0,1,0],
+    [0,0,1,0,0],
+    [0,1,0,0,0],
+    [1,0,0,0,0],
+    [0,0,0,1,1],
+    [0,0,1,0,1],
+    [0,1,0,0,1],
+    [1,0,0,0,1],
+    [0,0,1,1,0],
+    [0,1,0,1,0],
+    [1,0,0,1,0],
+    [0,1,1,0,0],
+    [1,0,1,0,0],
+    [1,1,0,0,0],
+    [0,0,1,1,1],
+    [0,1,0,1,1],
+    [1,0,0,1,1],
+    [0,1,1,0,1],
+    [1,0,1,0,1],
+    [0,1,1,1,0],
+    [1,0,1,1,0],
+    [1,1,1,0,0],
+    [0,1,1,1,1],
+    [1,0,1,1,1],
+    [1,1,0,1,1],
+    [1,1,1,0,1],
+    [1,1,1,1,0],
+    [1,1,1,1,1]
+]
+
+def gen_usines_from_list(liste_usines : list) -> dict:
+    villes = ['Madrid','Marseille','Turin','Munich','Bruxelles']
+    dict_usine = {}
+    for i, ville in enumerate(villes):
+        dict_usine[ville] = liste_usines[i]
+    return (dict_usine)    
 
 # dict_usine_test, nb_usine = gen_usine(2**5-1)
 # villes = ['Madrid','Marseille','Turin','Munich','Bruxelles']
