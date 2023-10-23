@@ -44,6 +44,7 @@ table_usines_f = [
 ]
 
 dict_usines_f = gen_usines_from_list(table_usines_f[6])
+
 dict_usines_i = gen_usines_from_list(table_usines_f[1])
 
 ### Recherche des chemins les moins couteux
@@ -60,8 +61,13 @@ def cout_affretement(dict_vente_cost : dict, dict_previsions : dict) -> float:
         cout += dict_previsions[point_vente]*dict_vente_cost[point_vente]['totalCost']
     return(cout)
 
-def cout_ammortissement(dict_usines_f : dict, dict_usines_i : dict, dict_amortissement : dict) -> float:
+def cout_amortissement(dict_usines_f : dict, dict_usines_i : dict, dict_amortissement : dict) -> float:
     cout_machine_usine_f = dict_amortissement['Perceuse'] + dict_amortissement['Plieuse']
     cout_machine_usine_i = dict_amortissement['Colleuse'] + dict_amortissement['Presse'] + dict_amortissement['MoulSieg'] + dict_amortissement['MoulDos'] + dict_amortissement['Decoupeuse']
     cout = len(dict_usines_f.keys())*cout_machine_usine_f + len(dict_usines_i.keys())*cout_machine_usine_i
     return(cout)
+
+cout_aff = cout_affretement(dict_vente_cost, dict_previsions)
+print('cout_aff = ',cout_aff)
+cout_amo = cout_amortissement(dict_usines_f, dict_usines_i, dict_amortissement)
+print('cout_amo = ',cout_amo)
