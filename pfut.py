@@ -163,10 +163,12 @@ def min_fourn_usine_f (dict_usine_f : dict, dict_usine_i_cost : dict, dict_fourn
             totalCost = totalCost + aff_cost[id_min]
             ### Recherche du meilleur fournisseur de dossier et assise
             aff_cost=[]
+            keys = []
             for usine_i in dict_usine_i_cost.keys():
-                aff_cost.append(usine_i['totalCost'] + dict_affretement[usine_f][usine_i]/(dict_camion['Dossier']+dict_camion['Assise']))
+                aff_cost.append(dict_usine_i_cost[usine_i]['totalCost'] + dict_affretement[usine_f][usine_i]/(dict_camion['Dossier']+dict_camion['Assise']))
+                keys.append(usine_i)
             id_min = np.argmin(aff_cost)
-            dict_cost_mat['Usine_i'] = dict_usine_i_cost.keys()[id_min]
+            dict_cost_mat['Usine_i'] = keys[id_min]
             totalCost = totalCost + aff_cost[id_min]
             dict_cost_mat['totalCost'] = totalCost
             dict_usine_f_cost[usine_f] = dict_cost_mat
@@ -178,10 +180,12 @@ def min_fourn_vente (dict_usine_f_cost : dict, dict_affretement : dict, dict_cam
         dict_cost = {}
         totalCost = 0
         aff_cost = []
+        keys = []
         for usine_f in dict_usine_f_cost.keys():
-            aff_cost.append(usine_f['totalCost'] + dict_affretement[point_vente][usine_f]/dict_camion['Chaise'])
+            aff_cost.append(dict_usine_f_cost[usine_f]['totalCost'] + dict_affretement[point_vente][usine_f]/dict_camion['Chaise'])
+            keys.append(usine_f)
         id_min = np.argmin(aff_cost)
-        dict_cost['Usine_f'] = dict_usine_f_cost.keys()[id_min]
+        dict_cost['Usine_f'] = keys[id_min]
         totalCost = totalCost + aff_cost[id_min]
         dict_cost['totalCost'] = totalCost
         dict_vente_cost[point_vente] = dict_cost 
