@@ -85,3 +85,19 @@ def gen_camion_cap() -> dict:
 dict_camion = gen_camion_cap()
 # for prod in dict_camion.keys():
 #     print (prod, dict_camion[prod])
+
+def gen_previsions_vente() -> dict:
+    """Génere le dictionnaire des capacités des camions à partir du tableau
+
+    Returns:
+        dict ('<Produit>':int(capacité))
+    """
+    data = pd.read_csv('Previsions_vente.csv')
+    dict_previsions = {}
+    for i, Site in enumerate(data.Sites):
+        dict_previsions[Site]= data.Chaises[i]
+    return dict_previsions
+
+dict_previsions = gen_previsions_vente()
+for prod in dict_previsions.keys():
+    print (prod, dict_previsions[prod])
