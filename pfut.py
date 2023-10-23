@@ -177,7 +177,6 @@ def min_fourn_vente (dict_usine_f_cost : dict, dict_affretement : dict, dict_cam
     for point_vente in dict_previsions.keys():
         dict_cost = {}
         totalCost = 0
-        matiere = 'Chaise'
         aff_cost = []
         for usine_f in dict_usine_f_cost.keys():
             aff_cost.append(usine_f['totalCost'] + dict_affretement[point_vente][usine_f]/dict_camion['Chaise'])
