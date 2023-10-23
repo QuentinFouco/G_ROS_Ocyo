@@ -50,9 +50,32 @@ dict_usines_i = gen_usines_from_list(table_usines_f[1])
 ### Recherche des chemins les moins couteux
 dict_usines_i_cost = min_fourn_usine_i(dict_usines_i, dict_fourn, dict_affretement, dict_camion)
 
+print('Arborescence usine intermediaire :')
+for usine in dict_usines_i_cost.keys():
+    dict_usine = dict_usines_i_cost[usine]
+    print('\t', usine)
+    for matiere in dict_usine.keys():
+        print('\t\t', matiere, dict_usine[matiere])
+        
+
 dict_usines_f_cost = min_fourn_usine_f(dict_usines_f, dict_usines_i_cost, dict_fourn, dict_affretement, dict_camion)
 
+print('\nArborescence usine intermediaire :')
+for usine in dict_usines_f_cost.keys():
+    dict_usine = dict_usines_f_cost[usine]
+    print('\t',usine)
+    for matiere in dict_usine.keys():
+        print('\t\t', matiere, dict_usine[matiere])
+
+            
 dict_vente_cost = min_fourn_vente(dict_usines_f_cost, dict_affretement, dict_camion, dict_previsions)
+
+print('\nArborescence point de vente :')
+for point_vente in dict_vente_cost.keys():
+    dict_point_vente = dict_vente_cost[point_vente]
+    print('\t',point_vente)
+    for matiere in dict_point_vente.keys():
+        print('\t\t', matiere, dict_point_vente[matiere])
 
 ### Calcul du cout 
 def cout_affretement(dict_vente_cost : dict, dict_previsions : dict) -> float:

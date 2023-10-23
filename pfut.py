@@ -168,7 +168,7 @@ def min_fourn_usine_f (dict_usine_f : dict, dict_usine_i_cost : dict, dict_fourn
                 aff_cost.append(dict_usine_i_cost[usine_i]['totalCost'] + dict_affretement[usine_f][usine_i]/(dict_camion['Dossier']+dict_camion['Assise']))
                 keys.append(usine_i)
             id_min = np.argmin(aff_cost)
-            dict_cost_mat['Usine_i'] = keys[id_min]
+            dict_cost_mat['Usine_i'] = (keys[id_min], dict_affretement[usine_f][usine_i]/(dict_camion['Dossier']+dict_camion['Assise']))
             totalCost = totalCost + aff_cost[id_min]
             dict_cost_mat['totalCost'] = totalCost
             dict_usine_f_cost[usine_f] = dict_cost_mat

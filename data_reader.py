@@ -34,11 +34,11 @@ def affretement () -> dict:
             dict_longueurs[nom2] = data[nom1][j]
         dict_affretement[nom1] = dict_longueurs    
     return (dict_affretement)
-data = read_data(list_csv)
+# data = read_data(list_csv)
 
 # print (data.Sites)
 # print (data.Chaises)
-dict_affretement = affretement()
+# dict_affretement = affretement()
 # print (dict_affretement)
 # print (dict_affretement.keys())
 
@@ -62,13 +62,13 @@ def gen_dict_fourn (dict_affretement : dict) -> dict:
         for i, ville in enumerate(villes):
             if df_fourn[matiere][i]==1:
                 fourn.append(ville)
-        print(matiere, fourn)
+        # print(matiere, fourn)
         dict_fournisseur[matiere]=fourn
     return(dict_fournisseur)
         
 
     
-gen_dict_fourn(dict_affretement)
+# gen_dict_fourn(dict_affretement)
 
 def gen_camion_cap() -> dict:
     """Génere le dictionnaire des capacités des camions à partir du tableau
@@ -82,7 +82,7 @@ def gen_camion_cap() -> dict:
         dict_affretement[Produit]= data.Unit_camion[i]
     return dict_affretement
 
-dict_camion = gen_camion_cap()
+# dict_camion = gen_camion_cap()
 # for prod in dict_camion.keys():
 #     print (prod, dict_camion[prod])
 
@@ -98,9 +98,9 @@ def gen_previsions_vente() -> dict:
         dict_previsions[Site]= data.Chaises[i]
     return dict_previsions
 
-dict_previsions = gen_previsions_vente()
-for prod in dict_previsions.keys():
-    print (prod, dict_previsions[prod])
+# dict_previsions = gen_previsions_vente()
+# for prod in dict_previsions.keys():
+#     print (prod, dict_previsions[prod])
     
 def gen_amortissement() -> dict:
     """Génere le dictionnaire des capacités des camions à partir du tableau
