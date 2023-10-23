@@ -101,3 +101,15 @@ def gen_previsions_vente() -> dict:
 dict_previsions = gen_previsions_vente()
 for prod in dict_previsions.keys():
     print (prod, dict_previsions[prod])
+    
+def gen_amortissement() -> dict:
+    """Génere le dictionnaire des capacités des camions à partir du tableau
+
+    Returns:
+        dict ('<Produit>':int(capacité))
+    """
+    data = pd.read_csv('Cout_machine.csv')
+    dict_amortissement = {}
+    for i, Machine in enumerate(data.Machines):
+        dict_amortissement[Machine]= data.Amortissement[i]
+    return dict_amortissement
