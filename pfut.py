@@ -1,11 +1,12 @@
 import pandas as pd
 import numpy as np
-from data_reader import affretement, gen_dict_fourn, gen_camion_cap
+from data_reader import affretement, gen_dict_fourn, gen_camion_cap, gen_previsions_vente
 
 ### Récupération des données des tableaux
 dict_affretement = affretement()
 dict_fourn = gen_dict_fourn(dict_affretement)
 dict_camion = gen_camion_cap()
+dict_previsions = gen_previsions_vente()
 
 def gen_usine(index : int) -> tuple:
     """Genere le dictionnaire des usines a partir de la décomposition bianaire 
@@ -162,8 +163,8 @@ def min_fourn_usine_f (dict_usine_f : dict, dict_usine_i_cost : dict, dict_fourn
             totalCost = totalCost + aff_cost[id_min]
             ### Recherche du meilleur fournisseur de dossier et assise
             aff_cost=[]
-            for usine_i in dict_usine_i_cost:
-                aff_cost.append(usine_i['totalCost'])
+            for usine_i in dict_usine_i_cost.keys():
+                aff_cost.append(usine_i['totalCost'] + dict_affretement[usine_f][usine_i]/(dict_camion['Dossier']+dict_camion['Assise']))
             id_min = np.argmin(aff_cost)
             dict_cost_mat['Usine_i'] = dict_usine_i_cost.keys()[id_min]
             totalCost = totalCost + aff_cost[id_min]
@@ -171,3 +172,18 @@ def min_fourn_usine_f (dict_usine_f : dict, dict_usine_i_cost : dict, dict_fourn
             dict_usine_f_cost[usine_f] = dict_cost_mat
     return(dict_usine_f_cost)
 
+def min_fourn_vente (dict_usine_f_cost : dict, dict_affretement : dict, dict_camion : dict, dict_previsions : dict) -> dict:
+    dict_vente_cost = {}
+    for point_vente in dict_previsions.keys():
+        dict_cost = {}
+        totalCost = 0
+        matiere = 'Chaise'
+        aff_cost = []
+        for usine_f in dict_usine_f_cost.keys():
+            aff_cost.append(usine_f['totalCost'] + dict_affretement[point_vente][usine_f]/dict_camion['Chaise'])
+        id_min = np.argmin(aff_cost)
+        dict_cost['Usine_f'] = dict_usine_f_cost.keys()[id_min]
+        totalCost = totalCost + aff_cost[id_min]
+        dict_cost['totalCost'] = totalCost
+        dict_vente_cost[point_vente] = dict_cost 
+    return(dict_vente_cost)
