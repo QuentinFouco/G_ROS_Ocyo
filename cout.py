@@ -43,9 +43,9 @@ table_usines_f = [
     [1,1,1,1,1]
 ]
 
-dict_usines_f = gen_usines_from_list(table_usines_f[6])
+dict_usines_f = gen_usines_from_list(table_usines_f[-1])
 
-dict_usines_i = gen_usines_from_list(table_usines_f[1])
+dict_usines_i = gen_usines_from_list(table_usines_f[-1])
 
 ### Recherche des chemins les moins couteux
 dict_usines_i_cost = min_fourn_usine_i(dict_usines_i, dict_fourn, dict_affretement, dict_camion)
