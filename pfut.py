@@ -125,6 +125,7 @@ def min_fourn_usine_i (dict_usine_i : dict, dict_fourn : dict, dict_affretement 
                 dict_cost_mat[matiere] = (dict_fourn[matiere][id_min], aff_cost[id_min])
                 totalCost = totalCost + aff_cost[id_min]
             dict_cost_mat['totalCost']= totalCost
+            dict_cost_mat['Volume']= 0
             dict_usine_i_cost[usine] = dict_cost_mat
     return(dict_usine_i_cost)
 
@@ -165,12 +166,15 @@ def min_fourn_usine_f (dict_usine_f : dict, dict_usine_i_cost : dict, dict_fourn
             aff_cost=[]
             keys = []
             for usine_i in dict_usine_i_cost.keys():
-                aff_cost.append(dict_usine_i_cost[usine_i]['totalCost'] + dict_affretement[usine_f][usine_i]/(dict_camion['Dossier']+dict_camion['Assise']))
+                cout_unitaire_usine_i = dict_usine_i_cost[usine_i]['totalCost']
+                cout_unitaire_affretement = dict_affretement[usine_f][usine_i]/dict_camion['Dossier']+dict_affretement[usine_f][usine_i]/dict_camion['Assise']
+                aff_cost.append(cout_unitaire_usine_i + cout_unitaire_affretement)
                 keys.append(usine_i)
             id_min = np.argmin(aff_cost)
-            dict_cost_mat['Usine_i'] = (keys[id_min], dict_affretement[usine_f][usine_i]/(dict_camion['Dossier']+dict_camion['Assise']))
+            dict_cost_mat['Usine_i'] = (keys[id_min], cout_unitaire_affretement)
             totalCost = totalCost + aff_cost[id_min]
             dict_cost_mat['totalCost'] = totalCost
+            dict_cost_mat['Volume'] = 0
             dict_usine_f_cost[usine_f] = dict_cost_mat
     return(dict_usine_f_cost)
 
@@ -189,4 +193,5 @@ def min_fourn_vente (dict_usine_f_cost : dict, dict_affretement : dict, dict_cam
         totalCost = totalCost + aff_cost[id_min]
         dict_cost['totalCost'] = totalCost
         dict_vente_cost[point_vente] = dict_cost 
+        dict_cost['Volume'] = dict_previsions[point_vente]
     return(dict_vente_cost)
