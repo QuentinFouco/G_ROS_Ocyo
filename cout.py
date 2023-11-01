@@ -159,7 +159,7 @@ for site in dict_vente_cost.keys():
 
     
 ## Création de la liste des labels et répartition des couleurs
-labels = {n : G.nodes[n]['node_type']+'\n'+G.nodes[n]['place']+f"\nCoût unitaire : {G.nodes[n]['cout_unitaire']:.2f}" for n in G.nodes}
+labels = {n : G.nodes[n]['node_type']+'\n'+G.nodes[n]['place']+'\nVolume : '+str(G.nodes[n]['volume'])+f"\nCoût unitaire : {G.nodes[n]['cout_unitaire']:.2f}" for n in G.nodes}
 colors = [dict_colors[G.nodes[n]['node_type']] for n in G.nodes]
 sizes = []
 for n in list(G):
