@@ -208,7 +208,7 @@ def min_fourn_vente (dict_usine_f_cost : dict, dict_affretement : dict, dict_cam
             dict ('<Ville>':int(NbChaise))
 
     Returns:
-        dict: ('<usine>' : dict ('Usine_f' : '<fournisseur>'
+        dict: ('<ville>' : dict ('Usine_f' : '<fournisseur>'
                                 'totalCost' : float(Somme des couts)
                                 'Volume' : int(nb equivalants chaises produits)))
     """
