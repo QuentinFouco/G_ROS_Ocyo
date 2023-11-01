@@ -103,10 +103,10 @@ def gen_previsions_vente() -> dict:
 #     print (prod, dict_previsions[prod])
     
 def gen_amortissement() -> dict:
-    """Génere le dictionnaire des capacités des camions à partir du tableau
+    """Génere le dictionnaire des couts d'amortissement de chaque machine à partir du tableau
 
     Returns:
-        dict ('<Produit>':int(capacité))
+        dict ('<Machine>':int(cout))
     """
     data = pd.read_csv('Cout_machine.csv')
     dict_amortissement = {}
