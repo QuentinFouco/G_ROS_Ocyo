@@ -63,6 +63,15 @@ table_usines_f = [
 ]
 
 def gen_usines_from_list(liste_usines : list) -> dict:
+    """Génère le dictionnaire des usines et de leur présence en fonction d'une liste de binaire
+
+    Args:
+        liste_usines (list): Liste de 0 ou 1 décrivant si il y a une usine ou non a la ville du même index dans la liste "villes"
+
+    Returns:
+        dict:  Dictionnaire des usines
+            dict : ('<ville>': int)
+    """
     villes = ['Madrid','Marseille','Turin','Munich','Bruxelles']
     dict_usine = {}
     for i, ville in enumerate(villes):
@@ -110,7 +119,8 @@ def min_fourn_usine_i (dict_usine_i : dict, dict_fourn : dict, dict_affretement 
 
     Returns:
         dict: ('<usine>' : dict ('<matière>' : tuple('<fournisseur>', <cout>)
-                                'totalCost' : int(Somme des couts)))
+                                'totalCost' : float(Somme des couts)
+                                'Volume' : int(nb equivalants chaises produits)))
     """
     dict_usine_i_cost = {}
     for usine in dict_usine_i.keys():
@@ -137,7 +147,8 @@ def min_fourn_usine_f (dict_usine_f : dict, dict_usine_i_cost : dict, dict_fourn
             dict : ('<ville>': int) 
         dict_usine_i_cost (dict): Dictionnaire des usines intermédiaires avec leur fournisseur et leurs couts d'affretement
             dict: ('<usine>' : dict ('<matière>' : tuple('<fournisseur>', <cout>)
-                            'totalCost' : int(Somme des couts)))
+                            'totalCost' : float(Somme des couts)
+                            'Volume' : int(nb equivalants chaises produits)))
         dict_fourn (dict): Dictionnaire des matières premières et de la localisation de leur fournisseur
             dict : ('<produit>' : list['<ville>','<ville>'])
         dict_affretement (dict): Dictionnaire des couts d'affretement
@@ -146,8 +157,10 @@ def min_fourn_usine_f (dict_usine_f : dict, dict_usine_i_cost : dict, dict_fourn
             dict : ('<matière>' : int(<capacité>))
 
     Returns:
-        dict: ('<usine>' : dict ('<matière>' : tuple('<fournisseur>', <cout>)
-                                'totalCost' : int(Somme des couts)))
+        dict: ('<usine>' : dict ('Tube' : tuple('<fournisseur>', <cout>)
+                                'Usine_i' : tuple('<fournisseur>', <cout_affretement>)
+                                'totalCost' : float(Somme des couts)
+                                'Volume' : int(nb equivalants chaises produits)))
     """
     dict_usine_f_cost = {}
     for usine_f in dict_usine_f.keys():
@@ -179,6 +192,26 @@ def min_fourn_usine_f (dict_usine_f : dict, dict_usine_i_cost : dict, dict_fourn
     return(dict_usine_f_cost)
 
 def min_fourn_vente (dict_usine_f_cost : dict, dict_affretement : dict, dict_camion : dict, dict_previsions : dict) -> dict:
+    """Calcul le chemin optimal entre les points de ventes et leurs fournisseurs
+
+    Args:
+        dict_usine_f_cost (dict): Dictionnaire des usines finales avec leur fournisseur et leurs couts d'affretement
+            dict: ('<usine>' : dict ('Tube' : tuple('<fournisseur>', <cout>)
+                                'Usine_i' : tuple('<fournisseur>', <cout_affretement>)
+                                'totalCost' : float(Somme des couts)
+                                'Volume' : int(nb equivalants chaises produits)))
+        dict_affretement (dict): Dictionnaire des couts d'affretement
+            dict : ('<depart>' : dict ('<arrivée>' : int(<cout>)))
+        dict_camion (dict): Dictionnaire de la capacité des camions pour chaque matière
+            dict : ('<matière>' : int(<capacité>))
+        dict_previsions (dict): Dictionnaire des prévisions de vente par point de vente
+            dict ('<Ville>':int(NbChaise))
+
+    Returns:
+        dict: ('<usine>' : dict ('Usine_f' : '<fournisseur>'
+                                'totalCost' : float(Somme des couts)
+                                'Volume' : int(nb equivalants chaises produits)))
+    """
     dict_vente_cost = {}
     for point_vente in dict_previsions.keys():
         dict_cost = {}
