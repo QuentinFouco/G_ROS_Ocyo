@@ -34,11 +34,11 @@ table_usines_f = [
     [1,0,0,1,1],
     [0,1,1,0,1],
     [1,0,1,0,1],
+    [1,1,0,0,1],
     [0,1,1,1,0],
     [1,0,1,1,0],
-    [1,1,1,0,0],
-    [1,1,0,0,1],
     [1,1,0,1,0],
+    [1,1,1,0,0],
     [0,1,1,1,1],
     [1,0,1,1,1],
     [1,1,0,1,1],
@@ -111,6 +111,47 @@ def cout_affretement(dict_vente_cost : dict, dict_previsions : dict) -> float:
         cout += dict_previsions[point_vente]*dict_vente_cost[point_vente]['totalCost']
     return(cout)
 
+def cout_affretement_camion(dict_usines_f_cost : dict, dict_usines_i_cost : dict, dict_vente_cost : dict, dict_previsions : dict, dict_affretement : dict, dict_camion : dict) -> float:
+    cout_total = 0
+    ## cout affretement points de vente
+    for point_vente in dict_vente_cost.keys():
+        nb_camion = dict_vente_cost[point_vente]['Volume']//dict_camion['Chaise']
+        if dict_vente_cost[point_vente]['Volume']%dict_camion['Chaise']>0:
+            nb_camion += 1
+        cout_total += nb_camion*dict_affretement[point_vente][dict_vente_cost[point_vente]['Usine_f']]
+
+    ## cout affretement usines finales
+    for usine_f in dict_usines_f_cost.keys():
+        nb_camion = dict_usines_f_cost[usine_f]['Volume']//dict_camion['Tube']
+        if dict_usines_f_cost[usine_f]['Volume']%dict_camion['Tube']>0:
+            nb_camion += 1
+        cout_total += nb_camion*dict_affretement[usine_f][dict_usines_f_cost[usine_f]['Tube'][0]]
+        nb_camion = dict_usines_f_cost[usine_f]['Volume']//dict_camion['Dossier']
+        if dict_usines_f_cost[usine_f]['Volume']%dict_camion['Dossier']>0:
+            nb_camion += 1
+        cout_total += nb_camion*dict_affretement[usine_f][dict_usines_f_cost[usine_f]['Usine_i'][0]]
+        nb_camion = dict_usines_f_cost[usine_f]['Volume']//dict_camion['Assise']
+        if dict_usines_f_cost[usine_f]['Volume']%dict_camion['Assise']>0:
+            nb_camion += 1
+        cout_total += nb_camion*dict_affretement[usine_f][dict_usines_f_cost[usine_f]['Usine_i'][0]]
+
+    ## cout affretement usines intermédiaires
+    for usine_i in dict_usines_i_cost.keys():
+        nb_camion = (2*dict_usines_i_cost[usine_i]['Volume'])//dict_camion['Plastique']
+        if (2*dict_usines_i_cost[usine_i]['Volume'])%dict_camion['Plastique']>0:
+            nb_camion += 1
+        cout_total += nb_camion*dict_affretement[usine_i][dict_usines_i_cost[usine_i]['Plastique'][0]]
+        nb_camion = (2*dict_usines_i_cost[usine_i]['Volume'])//dict_camion['Mousse']
+        if (2*dict_usines_i_cost[usine_i]['Volume'])%dict_camion['Mousse']>0:
+            nb_camion += 1
+        cout_total += nb_camion*dict_affretement[usine_i][dict_usines_i_cost[usine_i]['Mousse'][0]]
+        nb_camion = (2*dict_usines_i_cost[usine_i]['Volume'])//dict_camion['Tissus']
+        if (2*dict_usines_i_cost[usine_i]['Volume'])%dict_camion['Tissus']>0:
+            nb_camion += 1
+        cout_total += nb_camion*dict_affretement[usine_i][dict_usines_i_cost[usine_i]['Tissus'][0]]
+        
+    return cout_total
+
 def cout_amortissement(dict_usines_f : dict, dict_usines_i : dict, dict_amortissement : dict) -> float:
     """_summary_
 
@@ -132,6 +173,7 @@ def cout_amortissement(dict_usines_f : dict, dict_usines_i : dict, dict_amortiss
 
 ## Calcul et affichage des couts
 cout_aff = cout_affretement(dict_vente_cost, dict_previsions)
+# cout_aff = cout_affretement_camion(dict_usines_f_cost, dict_usines_i_cost, dict_vente_cost, dict_previsions, dict_affretement, dict_camion)
 print('cout_aff = ',cout_aff)
 cout_amo = cout_amortissement(dict_usines_f, dict_usines_i, dict_amortissement)
 print('cout_amo = ',cout_amo)
