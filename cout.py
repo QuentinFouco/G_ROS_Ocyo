@@ -68,7 +68,7 @@ for usine in dict_usines_i_cost.keys():
 dict_usines_f_cost = min_fourn_usine_f(dict_usines_f, dict_usines_i_cost, dict_fourn, dict_affretement, dict_camion)
 
 # Affichage du dictionnaire de plus court chemin entre les usines finales et leurs fournisseurs
-print('\nArborescence usine intermediaire :')
+print('\nArborescence usine finale :')
 for usine in dict_usines_f_cost.keys():
     dict_usine = dict_usines_f_cost[usine]
     print('\t',usine)
