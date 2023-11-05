@@ -127,7 +127,13 @@ def cout_amortissement(dict_usines_f : dict, dict_usines_i : dict, dict_amortiss
     """
     cout_machine_usine_f = dict_amortissement['Perceuse'] + dict_amortissement['Plieuse']
     cout_machine_usine_i = dict_amortissement['Colleuse'] + dict_amortissement['Presse'] + dict_amortissement['MoulSieg'] + dict_amortissement['MoulDos'] + dict_amortissement['Decoupeuse']
-    cout = len(dict_usines_f.keys())*cout_machine_usine_f + len(dict_usines_i.keys())*cout_machine_usine_i
+    cout = 0
+    for usine_f in dict_usines_f.keys():
+        if dict_usines_f[usine_f]==1:
+            cout += cout_machine_usine_f
+    for usine_i in dict_usines_i.keys():
+        if dict_usines_i[usine_i]==1:
+            cout += cout_machine_usine_i
     return(cout)
 
 ## Calcul et affichage des couts
